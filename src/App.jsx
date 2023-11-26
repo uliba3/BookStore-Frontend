@@ -3,22 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import GoogleBookCard from './components/googleBookCard';
 import { changeIndex, searchGoogleBooks } from './reducers/googleBooksReducer';
+import IndexButtons from './components/IndexButtons';
 
 function App() {
   const dispatch = useDispatch();
   const googleBooks = useSelector(state => state.googleBooks);
   const [searchTerm, setSearchTerm] = useState(''); // state for search term
-  const [startIndex, setStartIndex] = useState(0); // state for start index
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(searchGoogleBooks(searchTerm));
-    setStartIndex(0);
-  }
-
-  const handleClick = async (index) => {
-    setStartIndex(index);
-    dispatch(changeIndex(searchTerm, index));
   }
 
   return (
@@ -34,9 +28,7 @@ function App() {
             <GoogleBookCard book={book} key={i} />
           )
         })}
-        {startIndex-1!=-1&&<button onClick={() => handleClick(startIndex-1)}>{startIndex-1}</button>}
-        <button onClick={() => handleClick(startIndex)}>{startIndex}</button>
-        <button onClick={() => handleClick(startIndex+1)}>{startIndex+1}</button>
+        <IndexButtons />
       </div>}
     </>
   )
