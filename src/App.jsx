@@ -1,26 +1,24 @@
 import { useState } from 'react'
-import { search } from './services/googleBooks'
+import { useDispatch, useSelector } from 'react-redux';
 
 import GoogleBookCard from './components/googleBookCard';
+import { changeIndex, searchGoogleBooks } from './reducers/googleBooksReducer';
 
 function App() {
-  const [googleBooks, setGoogleBooks] = useState([]); // state for google books
+  const dispatch = useDispatch();
+  const googleBooks = useSelector(state => state.googleBooks);
   const [searchTerm, setSearchTerm] = useState(''); // state for search term
   const [startIndex, setStartIndex] = useState(0); // state for start index
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const responseData = await search(searchTerm, 0);
+    dispatch(searchGoogleBooks(searchTerm));
     setStartIndex(0);
-    setGoogleBooks(responseData);
-    console.log(responseData);
   }
 
   const handleClick = async (index) => {
-    const responseData = await search(searchTerm, index);
     setStartIndex(index);
-    setGoogleBooks(responseData);
-    console.log(responseData);
+    dispatch(changeIndex(searchTerm, index));
   }
 
   return (
