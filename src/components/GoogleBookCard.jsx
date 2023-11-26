@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 function GoogleBookCard({ book }) {
     return (
-        <div>
+        <Link to={`${book.id}`}>
           <h1>{book.title}</h1>
           <p>{book.authors || ""}</p>
           {/* Check if imageLinks is available before accessing its properties */}
@@ -16,7 +18,7 @@ function GoogleBookCard({ book }) {
               alt={book.title}
             />
           )}
-        </div>
+        </Link>
       );
 }
 

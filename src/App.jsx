@@ -1,24 +1,11 @@
 // src/App.jsx
-import { useSelector } from 'react-redux';
-
-import GoogleBookCard from './components/googleBookCard';
-import IndexButtons from './components/IndexButtons';
-import SearchBox from './components/SearchBox';
+import { Link, Outlet } from "react-router-dom"; 
 
 function App() {
-  const googleBooks = useSelector(state => state.googleBooks);
   return (
     <>
-      <SearchBox />
-      {googleBooks &&
-      <div>
-        {googleBooks.map((book, i) => {
-          return (
-            <GoogleBookCard book={book} key={i} />
-          )
-        })}
-        <IndexButtons />
-      </div>}
+      <Link to={`googleBooks`}>bookSearch</Link>
+      <Outlet />
     </>
   )
 }
