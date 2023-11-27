@@ -14,6 +14,6 @@ export const addBook = async (book) => {
 }
 
 export const deleteBook = async (book) => {
-    const response = await axios.delete(`${baseUrl}/${book.id}`);
+    const response = await axios.delete(`${baseUrl}/${book.bookId}`);
     return response.data;
 }

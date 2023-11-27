@@ -1,14 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { addNewBook } from '../reducers/userBooksReducer';
+import { addNewBook, deleteExistingBook } from '../reducers/userBooksReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { isBookIncluded } from '../services/book';
+import AddButton from './AddButton';
 
 
 function BookCard({ book }) {
-  const dispatch = useDispatch();
-  const userBooks = useSelector(state => state.userBooks);
-  const isAdded = isBookIncluded(book, userBooks);
 
   return (
     <>
@@ -28,7 +26,7 @@ function BookCard({ book }) {
         )}
         {/* Use the result of isBookAdded for conditional rendering */}
       </Link>
-      {isAdded ? <p>Book is added</p> : <button onClick={() => dispatch(addNewBook(book))}>Add to Library</button>}
+      <AddButton book={book} />
     </>
   );
 }
