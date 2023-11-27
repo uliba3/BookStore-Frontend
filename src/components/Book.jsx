@@ -1,4 +1,5 @@
 import React from "react";
+import AddButton from "./AddButton";
 
 function ImageDisplay({ book }) {
   if (book.imageLinks) {
@@ -23,6 +24,7 @@ function Book({ book }) {
           <p>{book.authors || ""}</p>
           <ImageDisplay book={book} />
           <div>{book.description}</div>
+          <AddButton book={book} />
         </>
       ) : (
         <p>Book not found</p>
