@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-function GoogleBookCard({ book }) {
+function BookCard({ book }) {
     return (
-        <Link to={`${book.id}`}>
+        <Link to={`${book.bookId}`}>
           <h1>{book.title}</h1>
           <p>{book.authors || ""}</p>
           {/* Check if imageLinks is available before accessing its properties */}
@@ -22,4 +22,4 @@ function GoogleBookCard({ book }) {
       );
 }
 
-export default GoogleBookCard;
+export default BookCard;

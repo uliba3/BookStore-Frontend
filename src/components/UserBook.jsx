@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
 import Book from "./Book";
 
-function GoogleBook() {
+function UserBook() {
   const { bookId } = useLoaderData();
-  const googleBooks = useSelector((state) => state.googleBooks);
-  const book = googleBooks.find((book) => book.bookId === bookId);
+  const userBooks = useSelector((state) => state.userBooks);
+  const book = userBooks.find((book) => book.bookId === bookId);
 
   return (
     <div>
@@ -21,4 +21,4 @@ function GoogleBook() {
   );
 }
 
-export default GoogleBook;
+export default UserBook;

@@ -10,7 +10,9 @@ import {
 } from "react-router-dom";
 import GoogleBooks from './components/GoogleBooks.jsx';
 import GoogleBook from './components/GoogleBook.jsx';
-import { getBookById } from './components/GoogleBook.jsx';
+import { getBookById } from './services/book.js';
+import UserBooks from './components/UserBooks.jsx';
+import UserBook from './components/UserBook.jsx';
 
 const router = createBrowserRouter([
 
@@ -25,6 +27,15 @@ const router = createBrowserRouter([
       {
         path: "googleBooks/:id",
         element: <GoogleBook />,
+        loader: getBookById
+      },
+      {
+        path: "userBooks",
+        element: <UserBooks />,
+      },
+      {
+        path: "userBooks/:id",
+        element: <UserBook />,
         loader: getBookById
       },
     ],
