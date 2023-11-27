@@ -12,3 +12,8 @@ export const addBook = async (book) => {
     const response = await axios.post(baseUrl, book);
     return response.data;
 }
+
+export const deleteBook = async (book) => {
+    const response = await axios.delete(`${baseUrl}/${book.id}`);
+    return response.data;
+}

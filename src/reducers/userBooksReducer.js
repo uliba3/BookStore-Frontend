@@ -1,7 +1,6 @@
 // src/reducers/taskReducer.js
 import { createSlice } from '@reduxjs/toolkit';
-import { getBooks } from '../services/userBooks';
-import { is } from 'immer/dist/internal';
+import { getBooks, addBook, deleteBook } from '../services/userBooks';
 
 export const userBooksSlice = createSlice({
   name: 'userBooks',
@@ -24,12 +23,18 @@ export const initializeUserBooks = () => async (dispatch) => {
     }
 };
 
-export const addBook = (book) => async (dispatch) => {
+export const addNewBook = (book) => async (dispatch) => {
     if(!isBookAdded(book)) {
       const newBooks = await addBook(book);
       dispatch(setUserBooks(newBooks));
     }
 };
+
+export const deleteExistingBook = (book) => async (dispatch) => {
+    await deleteBook(book);
+    const newBooks = state.filter(b => b.bookId !== book.bookId);
+    dispatch(setUserBooks(newBooks));
+}
 
 export function isBookAdded(state, book) {
     return state.some(b => b.bookId === book.bookId);
