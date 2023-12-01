@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-
 export function getBookById({ params }) {
     return { bookId: params.id };
 }

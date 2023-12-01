@@ -1,5 +1,5 @@
 // src/App.jsx
-import { Link, Outlet, redirect, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { loadUser, logoutUser } from "./reducers/userReducer";

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react'
 import { loginUser } from '../reducers/userReducer';
 import { addNewUser } from '../services/user';
