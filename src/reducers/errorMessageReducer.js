@@ -12,7 +12,7 @@ export const errorMessageSlice = createSlice({
 export const { setErrorMessage } = errorMessageSlice.actions;
 
 export const makeErrorMessage = (message) => async (dispatch) => {
-    console.log("error", error);
+    console.log("error", message);
     dispatch(setErrorMessage(message));
     setTimeout(() => {
         dispatch(setErrorMessage(""));

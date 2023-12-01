@@ -32,3 +32,5 @@ export const deleteBook = async (book) => {
     const response = await axios.delete(`${baseUrl}/${book.bookId}`, config);
     return response.data;
 }
+
+export default { setToken }

@@ -5,7 +5,7 @@ import SearchBox from './SearchBox';
 import Books from './Books';
 
 function GoogleBooks() {
-  const googleBooks = useSelector(state => state.googleBooks);
+  const googleBooks = useSelector(state => state.googleBooks.books);
   return (
     <>
       <SearchBox />

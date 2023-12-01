@@ -1,8 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { addNewBook, deleteExistingBook } from '../reducers/userBooksReducer';
-import { useDispatch, useSelector } from 'react-redux';
-import { isBookIncluded } from '../services/book';
 import AddButton from './AddButton';
 
 

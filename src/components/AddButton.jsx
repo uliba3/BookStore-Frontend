@@ -1,10 +1,10 @@
-import { addNewBook, deleteExistingBook } from '../reducers/userBooksReducer';
+import { addNewBook, deleteExistingBook } from '../reducers/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { isBookIncluded } from '../services/book';
 
 function AddButton({ book }) {
   const dispatch = useDispatch();
-  const userBooks = useSelector(state => state.userBooks);
+  const userBooks = useSelector(state => state.user.books);
   const isAdded = isBookIncluded(book, userBooks);
 
   return (

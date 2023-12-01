@@ -5,6 +5,7 @@ import { isBookIncluded } from '../services/book';
 import userBooksService from '../services/userBooks';
 import { resetGoogleBooks } from './googleBooksReducer';
 import { makeErrorMessage } from './errorMessageReducer';
+import loginService from '../services/login';
 
 export const userSlice = createSlice({
   name: 'user',
@@ -70,19 +71,17 @@ export const loginUser = (username, password) => async (dispatch) => {
     const user = await loginService.login({
         username, password
         })
+    console.log("user", user);
     window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
       )
-    dispatch(setUser(user));
-    dispatch(initializeUserBooks());
-
     userBooksService.setToken(user.token);
-
     console.log("loginUser", username, user.token);
     dispatch(setUser({ username, token: user.token }));
     dispatch(initializeUserBooks());
     } catch (error) {
         dispatch(makeErrorMessage("Wrong username or password"));
+        console.log("error", error);
     }
 };
 
@@ -97,6 +96,7 @@ export const loadUser = () => async (dispatch) => {
         const user = JSON.parse(loggedUserJSON);
         console.log("loadUser", user);
         dispatch(setUser(user));
+        userBooksService.setToken(user.token);
         dispatch(initializeUserBooks());
     }
 };

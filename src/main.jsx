@@ -13,6 +13,7 @@ import GoogleBook from './components/GoogleBook.jsx';
 import { getBookById } from './services/book.js';
 import UserBooks from './components/UserBooks.jsx';
 import UserBook from './components/UserBook.jsx';
+import AccountPage from './components/AccountPage.jsx';
 
 const router = createBrowserRouter([
 
@@ -20,6 +21,14 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children:[
+      {
+        path: "login",
+        element: <AccountPage method="login" />,
+      },
+      {
+        path: "signup",
+        element: <AccountPage method="signup" />,
+      },
       {
         path: "googleBooks",
         element: <GoogleBooks />,

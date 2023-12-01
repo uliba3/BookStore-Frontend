@@ -1,19 +1,13 @@
-// src/GoogleBooks.jsx
+// src/Books.jsx
 import BookCard from './BookCard';
 
 function Books({ books }) {
   return (
     <>
       {books &&
-      <>
-        <div>
-          {books.map((book, i) => {
-            return (
-              <BookCard book={book} key={i} />
-            )
-          })}
-        </div>
-      </>}
+          books.map((book, i) => (
+            <BookCard book={book} key={i} />
+          ))}
     </>
   )
 }

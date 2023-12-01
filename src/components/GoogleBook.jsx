@@ -5,7 +5,7 @@ import Book from "./Book";
 
 function GoogleBook() {
   const { bookId } = useLoaderData();
-  const googleBooks = useSelector((state) => state.googleBooks);
+  const googleBooks = useSelector((state) => state.googleBooks.books);
   const book = googleBooks.find((book) => book.bookId === bookId);
 
   return (

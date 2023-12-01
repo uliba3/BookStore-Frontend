@@ -1,15 +1,14 @@
 // src/UserBooks.jsx
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { initializeUserBooks } from '../reducers/userBooksReducer';
+import { initializeUserBooks } from '../reducers/userReducer';
 
-import BookCard from './BookCard';
 import { useDispatch } from 'react-redux';
 import Books from './Books';
 
 function UserBooks() {
     const dispatch = useDispatch();
-    const userBooks = useSelector(state => state.userBooks);
+    const userBooks = useSelector(state => state.user.books);
     useEffect (() => {
         console.log('userBooks useEffect');
         dispatch(initializeUserBooks());

@@ -5,7 +5,7 @@ import Book from "./Book";
 
 function UserBook() {
   const { bookId } = useLoaderData();
-  const userBooks = useSelector((state) => state.userBooks);
+  const userBooks = useSelector((state) => state.user.books);
   const book = userBooks.find((book) => book.bookId === bookId);
 
   return (
