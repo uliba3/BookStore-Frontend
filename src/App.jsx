@@ -1,15 +1,20 @@
 // src/App.jsx
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, redirect, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { loadUser, logoutUser } from "./reducers/userReducer";
 
 function App() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector(state => state.user);
   useEffect(() => {
     dispatch(loadUser());
   },[]);
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate('/');
+  };
 
   return (
     <>
@@ -24,7 +29,7 @@ function App() {
         <>
           <Link to={`googleBooks`}>bookSearch</Link>
           <Link to={`userBooks`}>user books</Link>
-          <button onClick={() => dispatch(logoutUser())}>logOut</button>
+          <button onClick={handleLogout}>logOut</button>
           <Outlet />
         </>
       )}

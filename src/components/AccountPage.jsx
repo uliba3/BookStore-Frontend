@@ -1,18 +1,21 @@
 import { useDispatch } from 'react-redux';
+import { redirect, useNavigate } from 'react-router-dom';
 import { useState } from 'react'
 import { loginUser } from '../reducers/userReducer';
 import { addNewUser } from '../services/user';
 
 function AccountPage ({method}) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(method == "login"){
-            dispatch(loginUser(username, password));
+            await dispatch(loginUser(username, password));
+            navigate('/');
         }else if(method == "signup"){
-            addNewUser(username, password);
+            await addNewUser(username, password);
         }
         setUsername('');
         setPassword('');

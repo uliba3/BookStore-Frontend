@@ -5,7 +5,6 @@ export function getBookById({ params }) {
 }
 
 export function isBookIncluded(book, books) {
-    console.log("isBookIncluded", book, books);
     if (!Array.isArray(books)) {
         console.error('books is not an array');
         return false;
