@@ -7,11 +7,11 @@ const setToken = newToken => {
   token = `Bearer ${newToken}`
 }
 
-export const getWishlist = async () => {
+export const getBooks = async () => {
     const config = {
         headers: { Authorization: token },
     };
-    console.log("getWishlist");
+    console.log("getBooks");
     const response = await axios.get(baseUrl, config);
     console.log("response", response);
     return response.data;

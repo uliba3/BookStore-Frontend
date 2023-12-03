@@ -42,9 +42,9 @@ export const reset = () => async (dispatch) => {
 export const initializeUserBooks = () => async (dispatch) => {
     console.log("initializeUserBooks");
     try {
-        const history = await userHistory.getHistory();
+        const history = await userHistory.getBooks();
         console.log("books", history);
-        const wishlist = await userWishlist.getWishlist();
+        const wishlist = await userWishlist.getBooks();
         console.log("books", wishlist);
         dispatch(setUserBooks({history: history, wishlist: wishlist}));  // dispatching with the correct payload
     } catch (error) {
@@ -52,26 +52,26 @@ export const initializeUserBooks = () => async (dispatch) => {
     }
 };
 
-export const addNewContent = (book, place) => async (dispatch, getState) => {
-    const userBooks = place=="history"? getState().user.history : getState().user.wishlist;
+export const addNewBook = (book, bookDestination) => async (dispatch, getState) => {
+    const userBooks = bookDestination=="history"? getState().user.history : getState().user.wishlist;
     try {
         if (!isContentIncluded(book, userBooks)) {
-            place=="history"? await userHistory.addBook(book): await userWishlist.addBook(book);
+            bookDestination=="history"? await userHistory.addBook(book): await userWishlist.addBook(book);
             const newBooks = [...userBooks, book];
-            place=="history"? dispatch(setUserBooks({history: newBooks})): dispatch(setUserBooks({wishlist: newBooks}));
+            bookDestination=="history"? dispatch(setUserBooks({history: newBooks})): dispatch(setUserBooks({wishlist: newBooks}));
         }
     } catch (error) {
         dispatch(makeErrorMessage("Error adding a new book"));
     }
 };
 
-export const deleteExistingBook = (book, place) => async (dispatch, getState) => {
-    const userBooks = place=="history"? getState().user.history : getState().user.wishlist;
+export const deleteExistingBook = (book, bookDestination) => async (dispatch, getState) => {
+    const userBooks = bookDestination=="history"? getState().user.history : getState().user.wishlist;
     try {
         if (isContentIncluded(book, userBooks)) {
-            place=="history"? await userHistory.deleteBook(book): await userWishlist.deleteBook(book);
+            bookDestination=="history"? await userHistory.deleteBook(book): await userWishlist.deleteBook(book);
             const newContents = userBooks.filter(b => b.bookId !== book.bookId);
-            place=="history"? dispatch(setUserBooks({history: newContents})): dispatch(setUserBooks({wishlist: newContents}));
+            bookDestination=="history"? dispatch(setUserBooks({history: newContents})): dispatch(setUserBooks({wishlist: newContents}));
         }
     } catch (error) {
         dispatch(makeErrorMessage("Error deleting the book"));
