@@ -1,26 +1,33 @@
 // src/reducers/taskReducer.js
 import { createSlice } from '@reduxjs/toolkit';
-import { getBooks, addBook, deleteBook } from '../services/userBooks';
-import { isBookIncluded } from '../services/book';
+import { isContentIncluded } from '../services/book';
 import userBooksService from '../services/userBooks';
 import { resetGoogleBooks } from './googleBooksReducer';
 import { makeErrorMessage } from './errorMessageReducer';
 import loginService from '../services/login';
+import userHistory from '../services/userHistory';
+import userWishlist from '../services/userWishlist';
 
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
     username: null,
     token: null,
-    books: [],
+    history: [],
+    wishlist: [],
   },
   reducers: {
     setUser: (state, action) => {
       state.username = action.payload.username;
       state.token = action.payload.token;
     },
-    setUserBooks: (state, action) => {
-        state.books = action.payload; // Assuming payload is an array of books
+    setUserContents: (state, action) => {
+        const { history, wishlist } = action.payload;
+  
+        // Assuming payload has 'history' and 'wishlist' properties,
+        // and both are arrays of books
+        state.history = history || state.history;
+        state.wishlist = wishlist || state.wishlist;
     },
   },
 });
@@ -29,38 +36,43 @@ export const { setUser, setUserBooks } = userSlice.actions;
 
 export const reset = () => async (dispatch) => {
     dispatch(resetGoogleBooks());
-    dispatch(setUser({ username: null, token: null, books: [] }));
+    dispatch(setUser({ username: null, token: null, history: [], wishlist: [] }));
 }
 
-export const initializeUserBooks = () => async (dispatch) => {
+export const initializeUserContents = () => async (dispatch) => {
     console.log("initializeUserBooks");
     try {
-        const books = await getBooks();
-        console.log("books", books);
-        dispatch(setUserBooks(books));  // dispatching with the correct payload
+        const history = await userHistory.getHistory();
+        console.log("books", history);
+        const wishlist = await userWishlist.getWishlist();
+        console.log("books", wishlist);
+        dispatch(setUserContents({history: history, wishlist: wishlist}));  // dispatching with the correct payload
     } catch (error) {
         dispatch(makeErrorMessage("Error loading user books"));
     }
 };
 
-export const addNewBook = (book) => async (dispatch, getState) => {
+export const addNewContent = (book, place) => async (dispatch, getState) => {
+    const userContents = place=="history"? getState().user.history : getState().user.wishlist;
     try {
-        const userBooks = getState().user.books;
-        if (!isBookIncluded(book, userBooks)) {
-            await addBook(book);
+        if (!isContentIncluded(book, userContents)) {
+            place=="history"? await userHistory.addBook(book): await userWishlist.addBook(book);
             const newBooks = [...userBooks, book];
-            dispatch(setUserBooks(newBooks));
+            place=="history"? dispatch(setUserContents({history: newBooks})): dispatch(setUserContents({wishlist: newBooks}));
         }
     } catch (error) {
         dispatch(makeErrorMessage("Error adding a new book"));
     }
 };
 
-export const deleteExistingBook = (book) => async (dispatch, getState) => {
+export const deleteExistingBook = (book, place) => async (dispatch, getState) => {
+    const userContents = place=="history"? getState().user.history : getState().user.wishlist;
     try {
-        await deleteBook(book);
-        const newBooks = getState().user.books.filter(b => b.bookId !== book.bookId);
-        dispatch(setUserBooks(newBooks));
+        if (isContentIncluded(book, userContents)) {
+            place=="history"? await userHistory.deleteBook(book): await userWishlist.deleteBook(book);
+            const newContents = userContents.filter(b => b.bookId !== book.bookId);
+            place=="history"? dispatch(setUserContents({history: newContents})): dispatch(setUserContents({wishlist: newContents}));
+        }
     } catch (error) {
         dispatch(makeErrorMessage("Error deleting the book"));
     }
@@ -78,7 +90,7 @@ export const loginUser = (username, password) => async (dispatch) => {
     userBooksService.setToken(user.token);
     console.log("loginUser", username, user.token);
     dispatch(setUser({ username, token: user.token }));
-    dispatch(initializeUserBooks());
+    dispatch(initializeUserContents());
     } catch (error) {
         dispatch(makeErrorMessage("Wrong username or password"));
         console.log("error", error);
@@ -97,7 +109,7 @@ export const loadUser = () => async (dispatch) => {
         console.log("loadUser", user);
         dispatch(setUser(user));
         userBooksService.setToken(user.token);
-        dispatch(initializeUserBooks());
+        dispatch(initializeUserContents());
     }
 };
 

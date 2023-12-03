@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = "http://localhost:3000/api/books";
+const baseUrl = "http://localhost:3000/api/wishlist";
 
 let token = null
 
@@ -7,11 +7,11 @@ const setToken = newToken => {
   token = `Bearer ${newToken}`
 }
 
-export const getBooks = async () => {
+export const getWishlist = async () => {
     const config = {
         headers: { Authorization: token },
     };
-    console.log("getBooks");
+    console.log("getWishlist");
     const response = await axios.get(baseUrl, config);
     console.log("response", response);
     return response.data;
