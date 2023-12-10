@@ -2,10 +2,11 @@ export function getBookById({ params }) {
     return { bookId: params.id };
 }
 
-export function isContentIncluded(content, contents) {
-    if (!Array.isArray(contents)) {
-        console.error('contents is not an array');
+export function isBookIncluded(book, books) {
+    console.log('isBookIncluded', book, books);
+    if (!Array.isArray(books)) {
+        console.error('books is not an array');
         return false;
     }
-    return contents.some(b => b.bookId === content.bookId);
+    return books.some(b => b.bookId === book.bookId);
 }

@@ -6,9 +6,9 @@ import { initializeUserBooks } from '../reducers/userReducer';
 import { useDispatch } from 'react-redux';
 import Books from './Books';
 
-function UserBooks() {
+function UserBooks({bookDestination}) {
     const dispatch = useDispatch();
-    const userBooks = useSelector(state => state.user.books);
+    const userBooks = bookDestination=="history"? useSelector(state => state.user.history): useSelector(state => state.user.wishlist);
     useEffect (() => {
         console.log('userBooks useEffect');
         dispatch(initializeUserBooks());

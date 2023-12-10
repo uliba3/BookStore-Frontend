@@ -1,7 +1,6 @@
 // src/reducers/taskReducer.js
 import { createSlice } from '@reduxjs/toolkit';
-import { isContentIncluded } from '../services/book';
-import userBooksService from '../services/userBooks';
+import { isBookIncluded } from '../services/book';
 import { resetGoogleBooks } from './googleBooksReducer';
 import { makeErrorMessage } from './errorMessageReducer';
 import loginService from '../services/login';
@@ -48,6 +47,7 @@ export const initializeUserBooks = () => async (dispatch) => {
         console.log("books", wishlist);
         dispatch(setUserBooks({history: history, wishlist: wishlist}));  // dispatching with the correct payload
     } catch (error) {
+        console.log("error", error);
         dispatch(makeErrorMessage("Error loading user books"));
     }
 };
@@ -55,7 +55,7 @@ export const initializeUserBooks = () => async (dispatch) => {
 export const addNewBook = (book, bookDestination) => async (dispatch, getState) => {
     const userBooks = bookDestination=="history"? getState().user.history : getState().user.wishlist;
     try {
-        if (!isContentIncluded(book, userBooks)) {
+        if (!isBookIncluded(book, userBooks)) {
             bookDestination=="history"? await userHistory.addBook(book): await userWishlist.addBook(book);
             const newBooks = [...userBooks, book];
             bookDestination=="history"? dispatch(setUserBooks({history: newBooks})): dispatch(setUserBooks({wishlist: newBooks}));
@@ -68,7 +68,7 @@ export const addNewBook = (book, bookDestination) => async (dispatch, getState) 
 export const deleteExistingBook = (book, bookDestination) => async (dispatch, getState) => {
     const userBooks = bookDestination=="history"? getState().user.history : getState().user.wishlist;
     try {
-        if (isContentIncluded(book, userBooks)) {
+        if (isBookIncluded(book, userBooks)) {
             bookDestination=="history"? await userHistory.deleteBook(book): await userWishlist.deleteBook(book);
             const newContents = userBooks.filter(b => b.bookId !== book.bookId);
             bookDestination=="history"? dispatch(setUserBooks({history: newContents})): dispatch(setUserBooks({wishlist: newContents}));
@@ -86,8 +86,9 @@ export const loginUser = (username, password) => async (dispatch) => {
     console.log("user", user);
     window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
-      )
-    userBooksService.setToken(user.token);
+    )
+    userHistory.setToken(user.token);
+    userWishlist.setToken(user.token);
     console.log("loginUser", username, user.token);
     dispatch(setUser({ username, token: user.token }));
     dispatch(initializeUserBooks());
@@ -108,7 +109,8 @@ export const loadUser = () => async (dispatch) => {
         const user = JSON.parse(loggedUserJSON);
         console.log("loadUser", user);
         dispatch(setUser(user));
-        userBooksService.setToken(user.token);
+        userHistory.setToken(user.token);
+        userWishlist.setToken(user.token);
         dispatch(initializeUserBooks());
     }
 };

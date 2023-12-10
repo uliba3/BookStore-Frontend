@@ -39,12 +39,21 @@ const router = createBrowserRouter([
         loader: getBookById
       },
       {
-        path: "userBooks",
-        element: <UserBooks />,
+        path: "history",
+        element: <UserBooks bookDestination="history"/>,
       },
       {
-        path: "userBooks/:id",
-        element: <UserBook />,
+        path: "history/:id",
+        element: <UserBook bookDestination="history"/>,
+        loader: getBookById
+      },
+      {
+        path: "wishlist",
+        element: <UserBooks bookDestination="wishlist"/>,
+      },
+      {
+        path: "wishlist/:id",
+        element: <UserBook bookDestination="wishlist"/>,
         loader: getBookById
       },
     ],

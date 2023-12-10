@@ -28,7 +28,8 @@ function App() {
       {user.token && (
         <>
           <Link to={`googleBooks`}>bookSearch</Link>
-          <Link to={`userBooks`}>user books</Link>
+          <Link to={`wishlist`}>wish list</Link>
+          <Link to={`history`}>history</Link>
           <button onClick={handleLogout}>logOut</button>
           <Outlet />
         </>

@@ -7,7 +7,7 @@ const setToken = newToken => {
   token = `Bearer ${newToken}`
 }
 
-export const getBooks = async () => {
+const getBooks = async () => {
     const config = {
         headers: { Authorization: token },
     };
@@ -17,7 +17,7 @@ export const getBooks = async () => {
     return response.data;
 };
 
-export const addBook = async (book) => {
+const addBook = async (book) => {
     const config = {
         headers: { Authorization: token },
     };
@@ -25,7 +25,7 @@ export const addBook = async (book) => {
     return response.data;
 }
 
-export const deleteBook = async (book) => {
+const deleteBook = async (book) => {
     const config = {
         headers: { Authorization: token },
     };
@@ -33,4 +33,4 @@ export const deleteBook = async (book) => {
     return response.data;
 }
 
-export default { setToken }
+export default { setToken, getBooks, addBook, deleteBook }

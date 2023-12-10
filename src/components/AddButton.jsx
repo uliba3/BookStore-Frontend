@@ -4,12 +4,24 @@ import { isBookIncluded } from '../services/book';
 
 function AddButton({ book }) {
   const dispatch = useDispatch();
-  const userBooks = useSelector(state => state.user.books);
-  const isAdded = isBookIncluded(book, userBooks);
+  const history = useSelector(state => state.user.history);
+  const wishlist = useSelector(state => state.user.wishlist);
+  console.log("history", history, "wishlist", wishlist);
+  const isBookInHistory = isBookIncluded(book, history);
+  const isBookInWishlist = isBookIncluded(book, wishlist);
 
   return (
     <>
-      {isAdded ? <button onClick={()=>dispatch(deleteExistingBook(book))}>Delete from Library</button> : <button onClick={() => dispatch(addNewBook(book))}>Add to Library</button>}
+      {
+        isBookInHistory ? 
+        <button onClick={()=>dispatch(deleteExistingBook(book, "history"))}>Delete from Library</button> : 
+        <button onClick={() => dispatch(addNewBook(book, "history"))}>Add to Library</button>
+      }
+      {
+        isBookInWishlist ? 
+        <button onClick={()=>dispatch(deleteExistingBook(book, "wishlist"))}>Delete from WishList</button> : 
+        <button onClick={() => dispatch(addNewBook(book, "wishlist"))}>Add to WishList</button>
+      }
     </>
   );
 }

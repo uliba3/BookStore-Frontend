@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
 import Book from "./Book";
 
-function UserBook() {
+function UserBook({ bookDestination}) {
   const { bookId } = useLoaderData();
-  const userBooks = useSelector((state) => state.user.books);
+  const userBooks = bookDestination=="history"?useSelector((state) => state.user.books):useSelector((state) => state.user.wishlist);
   const book = userBooks.find((book) => book.bookId === bookId);
 
   return (
