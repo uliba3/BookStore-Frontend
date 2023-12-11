@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import AddButton from "./AddButton";
 
 function ImageDisplay({ book }) {
@@ -17,6 +17,7 @@ function ImageDisplay({ book }) {
 }
 
 function Book({ bookDestination }) {
+  const navigate = useNavigate();
   const { bookId } = useLoaderData();
   let books;
   switch (bookDestination) {
@@ -37,6 +38,7 @@ function Book({ bookDestination }) {
     <div>
       {book ? (
         <>
+          <button onClick={() => navigate(-1)}>Back</button>
           <h1>{book.title}</h1>
           <p>{book.authors || ""}</p>
           <ImageDisplay book={book} />

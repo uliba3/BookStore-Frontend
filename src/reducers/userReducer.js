@@ -53,6 +53,7 @@ export const initializeUserBooks = () => async (dispatch) => {
     } catch (error) {
         console.log("error", error);
         dispatch(makeMessage("Error loading user books"));
+        dispatch(logoutUser());
     }
 };
 
