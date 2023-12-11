@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { useLoaderData } from "react-router-dom";
 import AddButton from "./AddButton";
 
 function ImageDisplay({ book }) {
@@ -14,7 +16,22 @@ function ImageDisplay({ book }) {
   }
 }
 
-function Book({ book }) {
+function Book({ bookDestination }) {
+  const { bookId } = useLoaderData();
+  let books;
+  switch (bookDestination) {
+      case "history":
+          books = useSelector(state => state.user.history);
+          break;
+      case "wishlist":
+          books = useSelector(state => state.user.wishlist);
+          break;
+      case "googleBooks":
+          books = useSelector(state => state.googleBooks.books);
+          break;
+  }
+  console.log(books, bookId, bookDestination);
+  const book = books.find((book) => book.bookId === bookId);
 
   return (
     <div>

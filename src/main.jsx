@@ -8,11 +8,9 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import GoogleBooks from './components/GoogleBooks.jsx';
-import GoogleBook from './components/GoogleBook.jsx';
 import { getBookById } from './services/book.js';
-import UserBooks from './components/UserBooks.jsx';
-import UserBook from './components/UserBook.jsx';
+import Books from './components/Books.jsx';
+import Book from './components/Book.jsx';
 import AccountPage from './components/AccountPage.jsx';
 import HomePage from './components/HomePage.jsx';
 
@@ -36,29 +34,29 @@ const router = createBrowserRouter([
       },
       {
         path: "googleBooks",
-        element: <GoogleBooks />,
+        element: <Books bookDestination="googleBooks"/>,
       },
       {
         path: "googleBooks/:id",
-        element: <GoogleBook />,
+        element: <Book bookDestination="googleBooks"/>,
         loader: getBookById
       },
       {
         path: "history",
-        element: <UserBooks bookDestination="history"/>,
+        element: <Books bookDestination="history"/>,
       },
       {
         path: "history/:id",
-        element: <UserBook bookDestination="history"/>,
+        element: <Book bookDestination="history"/>,
         loader: getBookById
       },
       {
         path: "wishlist",
-        element: <UserBooks bookDestination="wishlist"/>,
+        element: <Books bookDestination="wishlist"/>,
       },
       {
         path: "wishlist/:id",
-        element: <UserBook bookDestination="wishlist"/>,
+        element: <Book bookDestination="wishlist"/>,
         loader: getBookById
       },
     ],
