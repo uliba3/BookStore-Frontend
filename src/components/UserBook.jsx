@@ -5,7 +5,8 @@ import Book from "./Book";
 
 function UserBook({ bookDestination}) {
   const { bookId } = useLoaderData();
-  const userBooks = bookDestination=="history"?useSelector((state) => state.user.books):useSelector((state) => state.user.wishlist);
+  const userBooks = bookDestination=="history"?useSelector((state) => state.user.history):useSelector((state) => state.user.wishlist);
+  console.log(userBooks, bookId, bookDestination);
   const book = userBooks.find((book) => book.bookId === bookId);
 
   return (
