@@ -38,7 +38,6 @@ function App() {
           <Link to={`wishlist`}>wishlist</Link>
           <Link to={`history`}>history</Link>
           <button onClick={handleLogout}>logOut</button>
-          <button onClick={handleDelete}>deleteUser</button>
           {message && <p>{message}</p>}
           <Outlet />
         </>

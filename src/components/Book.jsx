@@ -2,9 +2,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import AddButton from "./AddButton";
+import { getGoogleBook } from "../services/googleBooks";
 
 function ImageDisplay({ book }) {
-  if (book.imageLinks) {
+  if (book.imageLinks.thumbnail) {
     return <img src={book.imageLinks.thumbnail} alt={book.title} />;
   } else {
     return (
@@ -32,7 +33,16 @@ function Book({ bookDestination }) {
           break;
   }
   console.log(books, bookId, bookDestination);
-  const book = books.find((book) => book.bookId === bookId);
+  let book;
+  switch(bookDestination) {
+      case "history":
+      case "wishlist":
+          book = books.find((book) => book.id === bookId);
+          break;
+      case "googleBooks":
+          book = getGoogleBook(bookId);
+          break;
+  }
 
   return (
     <div>
@@ -40,7 +50,8 @@ function Book({ bookDestination }) {
         <>
           <button onClick={() => navigate(-1)}>Back</button>
           <h1>{book.title}</h1>
-          <p>{book.authors || ""}</p>
+          <p>authors:{book.authors || ""}</p>
+          <p>publisher:{book.publisher || ""}</p>
           <ImageDisplay book={book} />
           <div>{book.description}</div>
           <AddButton book={book} />

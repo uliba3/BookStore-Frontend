@@ -10,9 +10,8 @@ function IndexButtons() {
 
     return(
         <div>
-            {googleBooksIndex!=0&&<button onClick={() => handleClick(googleBooksIndex-1)}>{googleBooksIndex-1}</button>}
-            <button onClick={() => handleClick(googleBooksIndex)}>{googleBooksIndex}</button>
-            <button onClick={() => handleClick(googleBooksIndex+1)}>{googleBooksIndex+1}</button>
+            {googleBooksIndex!=0&&<button onClick={() => handleClick(googleBooksIndex-1)}>←</button>}
+            <button onClick={() => handleClick(googleBooksIndex+1)}>→</button>
         </div>
     )
 }
