@@ -14,6 +14,7 @@ import { getBookById } from './services/book.js';
 import UserBooks from './components/UserBooks.jsx';
 import UserBook from './components/UserBook.jsx';
 import AccountPage from './components/AccountPage.jsx';
+import HomePage from './components/HomePage.jsx';
 
 const router = createBrowserRouter([
 
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children:[
+      {
+        path: "",
+        element: <HomePage />,
+      },
       {
         path: "login",
         element: <AccountPage method="login" />,
