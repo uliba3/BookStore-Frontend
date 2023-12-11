@@ -33,6 +33,7 @@ function App() {
       )}
       {user.token && (
         <>
+          <Link to={``}>home</Link>
           <Link to={`googleBooks`}>bookSearch</Link>
           <Link to={`wishlist`}>wishlist</Link>
           <Link to={`history`}>history</Link>
