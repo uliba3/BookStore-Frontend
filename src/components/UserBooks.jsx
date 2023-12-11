@@ -17,7 +17,7 @@ function UserBooks({bookDestination}) {
 
     return (
         <>
-        <h1>userBooks</h1>
+        <h1>{bookDestination}</h1>
         {userBooks &&
         <>
             <Books books={userBooks}/>

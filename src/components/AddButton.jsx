@@ -14,8 +14,8 @@ function AddButton({ book }) {
     <>
       {
         isBookInHistory ? 
-        <button onClick={()=>dispatch(deleteExistingBook(book, "history"))}>Delete from Library</button> : 
-        <button onClick={() => dispatch(addNewBook(book, "history"))}>Add to Library</button>
+        <button onClick={()=>dispatch(deleteExistingBook(book, "history"))}>Delete from history</button> : 
+        <button onClick={() => dispatch(addNewBook(book, "history"))}>Add to history</button>
       }
       {
         isBookInWishlist ? 

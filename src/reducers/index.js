@@ -2,12 +2,12 @@
 import { combineReducers } from 'redux';
 import googleBooksReducer from './googleBooksReducer';
 import userReducer from './userReducer';
-import errorMessageReducer from './errorMessageReducer';
+import messageReducer from './messageReducer';
 
 const rootReducer = combineReducers({
   googleBooks: googleBooksReducer,
   user: userReducer,
-  errorMessage: errorMessageReducer,
+  message: messageReducer,
   // Add other reducers as needed
 });
 

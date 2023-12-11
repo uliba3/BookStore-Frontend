@@ -11,7 +11,7 @@ const getBooks = async () => {
     const config = {
         headers: { Authorization: token },
     };
-    console.log("getBooks");
+    console.log("getBooks", token);
     const response = await axios.get(baseUrl, config);
     console.log("response", response);
     return response.data;

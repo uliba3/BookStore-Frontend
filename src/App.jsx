@@ -2,11 +2,12 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { loadUser, logoutUser } from "./reducers/userReducer";
+import { loadUser, logoutUser, deleteExistingUser } from "./reducers/userReducer";
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const message = useSelector(state => state.message);
   const user = useSelector(state => state.user);
   useEffect(() => {
     dispatch(loadUser());
@@ -15,6 +16,10 @@ function App() {
     dispatch(logoutUser());
     navigate('/');
   };
+  const handleDelete = () => {
+    dispatch(deleteExistingUser());
+    navigate('/');
+  }
 
   return (
     <>
@@ -22,15 +27,18 @@ function App() {
         <>
           <Link to={`login`}>login</Link>
           <Link to={`signup`}>signup</Link>
+          {message && <p>{message}</p>}
           <Outlet />
         </>
       )}
       {user.token && (
         <>
           <Link to={`googleBooks`}>bookSearch</Link>
-          <Link to={`wishlist`}>wish list</Link>
+          <Link to={`wishlist`}>wishlist</Link>
           <Link to={`history`}>history</Link>
           <button onClick={handleLogout}>logOut</button>
+          <button onClick={handleDelete}>deleteUser</button>
+          {message && <p>{message}</p>}
           <Outlet />
         </>
       )}

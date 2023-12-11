@@ -2,10 +2,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { isBookIncluded } from '../services/book';
 import { resetGoogleBooks } from './googleBooksReducer';
-import { makeErrorMessage } from './errorMessageReducer';
+import { makeMessage } from './messageReducer';
 import loginService from '../services/login';
 import userHistory from '../services/userHistory';
 import userWishlist from '../services/userWishlist';
+import { deleteUser } from '../services/users';
 
 export const userSlice = createSlice({
   name: 'user',
@@ -14,11 +15,13 @@ export const userSlice = createSlice({
     token: null,
     history: [],
     wishlist: [],
+    id: null,
   },
   reducers: {
     setUser: (state, action) => {
       state.username = action.payload.username;
       state.token = action.payload.token;
+      state.id = action.payload.id;
     },
     setUserBooks: (state, action) => {
         const { history, wishlist } = action.payload;
@@ -34,6 +37,7 @@ export const userSlice = createSlice({
 export const { setUser, setUserBooks } = userSlice.actions;
 
 export const reset = () => async (dispatch) => {
+    window.localStorage.removeItem('loggedUser');
     dispatch(resetGoogleBooks());
     dispatch(setUser({ username: null, token: null, history: [], wishlist: [] }));
 }
@@ -48,7 +52,7 @@ export const initializeUserBooks = () => async (dispatch) => {
         dispatch(setUserBooks({history: history, wishlist: wishlist}));  // dispatching with the correct payload
     } catch (error) {
         console.log("error", error);
-        dispatch(makeErrorMessage("Error loading user books"));
+        dispatch(makeMessage("Error loading user books"));
     }
 };
 
@@ -59,9 +63,10 @@ export const addNewBook = (book, bookDestination) => async (dispatch, getState) 
             bookDestination=="history"? await userHistory.addBook(book): await userWishlist.addBook(book);
             const newBooks = [...userBooks, book];
             bookDestination=="history"? dispatch(setUserBooks({history: newBooks})): dispatch(setUserBooks({wishlist: newBooks}));
+            dispatch(makeMessage("Book added to the " + bookDestination));
         }
     } catch (error) {
-        dispatch(makeErrorMessage("Error adding a new book"));
+        dispatch(makeMessage("Error adding a new book"));
     }
 };
 
@@ -74,7 +79,7 @@ export const deleteExistingBook = (book, bookDestination) => async (dispatch, ge
             bookDestination=="history"? dispatch(setUserBooks({history: newContents})): dispatch(setUserBooks({wishlist: newContents}));
         }
     } catch (error) {
-        dispatch(makeErrorMessage("Error deleting the book"));
+        dispatch(makeMessage("Error deleting the book"));
     }
 };
 
@@ -82,29 +87,30 @@ export const loginUser = (username, password) => async (dispatch) => {
     try {
     const user = await loginService.login({
         username, password
-        })
+    })
     console.log("user", user);
     window.localStorage.setItem(
-        'loggedBlogappUser', JSON.stringify(user)
+        'loggedUser', JSON.stringify(user)
     )
     userHistory.setToken(user.token);
     userWishlist.setToken(user.token);
     console.log("loginUser", username, user.token);
-    dispatch(setUser({ username, token: user.token }));
+    dispatch(setUser({ username, token: user.token, id: user.id }));
     dispatch(initializeUserBooks());
+    dispatch(makeMessage('Logged in'));
     } catch (error) {
-        dispatch(makeErrorMessage("Wrong username or password"));
+        dispatch(makeMessage("Wrong username or password"));
         console.log("error", error);
     }
 };
 
 export const logoutUser = () => async (dispatch) => {
-    window.localStorage.removeItem('loggedBlogappUser');
     dispatch(reset());
+    dispatch(makeMessage("Logged out"));
 }
 
 export const loadUser = () => async (dispatch) => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser');
+    const loggedUserJSON = window.localStorage.getItem('loggedUser');
     if (loggedUserJSON) {
         const user = JSON.parse(loggedUserJSON);
         console.log("loadUser", user);
@@ -114,5 +120,16 @@ export const loadUser = () => async (dispatch) => {
         dispatch(initializeUserBooks());
     }
 };
+
+export const deleteExistingUser = () => async (dispatch, getState) => {
+    try {
+        await deleteUser(getState().user);
+        dispatch(makeMessage("User deleted"));
+        dispatch(reset());
+    } catch (error) {
+        console.log("error", error);
+        dispatch(makeMessage("Error deleting the user"));
+    }
+}
 
 export default userSlice.reducer;

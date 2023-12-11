@@ -2,7 +2,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react'
 import { loginUser } from '../reducers/userReducer';
-import { addNewUser } from '../services/user';
+import { addNewUser } from '../services/users';
+import { makeMessage } from '../reducers/messageReducer';
 
 function AccountPage ({method}) {
     const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function AccountPage ({method}) {
             navigate('/');
         }else if(method == "signup"){
             await addNewUser(username, password);
+            dispatch(makeMessage('Signed up'));
         }
         setUsername('');
         setPassword('');
@@ -23,8 +25,8 @@ function AccountPage ({method}) {
     
     return (
         <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="username" onChange={(e) => setUsername(e.target.value)} />
-            <input type="text" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+            <input type="text" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <input type="text" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             <button type="submit">{method}</button>
         </form>
     )
