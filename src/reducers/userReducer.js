@@ -111,6 +111,7 @@ export const logoutUser = () => async (dispatch) => {
 
 export const loadUser = () => async (dispatch) => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser');
+    console.log("loadUser", loggedUserJSON);
     if (loggedUserJSON) {
         const user = JSON.parse(loggedUserJSON);
         console.log("loadUser", user);

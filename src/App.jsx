@@ -23,7 +23,7 @@ function App() {
 
   return (
     <>
-      {!user && (
+      {!user.token && (
         <>
           <Link to={`login`}>login</Link>
           <Link to={`signup`}>signup</Link>
@@ -31,7 +31,7 @@ function App() {
           <Outlet />
         </>
       )}
-      {user && (
+      {user.token && (
         <>
           <Link to={``}>home</Link>
           <Link to={`googleBooks`}>bookSearch</Link>
