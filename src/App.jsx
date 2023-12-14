@@ -7,6 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { loadUser, logoutUser } from "./reducers/userReducer";
 import { FaHome, FaSearch, FaStar, FaHistory } from "react-icons/fa";
+import Button from 'react-bootstrap/Button';
 
 function App() {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ function App() {
                     <NavLink to={`history`} className={state => "text-decoration-none text-dark" + (state.isActive ? ""  : " opacity-50")}><FaHistory />History</NavLink>
                   </Nav.Item>
                   <Nav.Item className="px-3">
-                    <button onClick={handleLogout}>logOut</button>
+                    <Button variant="outline-warning" size="sm" onClick={handleLogout}>logOut</Button>
                   </Nav.Item>
                 </>
               )}

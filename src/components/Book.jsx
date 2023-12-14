@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import { BsBoxArrowInLeft } from "react-icons/bs";
 import CloseButton from 'react-bootstrap/CloseButton';
 
 import AddButton from "./AddButton";

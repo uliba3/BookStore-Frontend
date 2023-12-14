@@ -1,7 +1,8 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeIndex } from '../reducers/googleBooksReducer';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import Pagination from 'react-bootstrap/Pagination';
 
 function IndexButtons() {
   const dispatch = useDispatch();
@@ -27,17 +28,13 @@ function IndexButtons() {
   }, [handleKeyPress]);
 
   return (
-    <div>
-      <button
+    <Pagination className='justify-content-center'>
+      <Pagination.Prev
         onClick={() => handleIndexChange(googleBooksIndex - 1)}
         className={googleBooksIndex !== 0 ? 'visible' : 'invisible'}
-      >
-        <IoIosArrowBack />
-      </button>
-      <button onClick={() => handleIndexChange(googleBooksIndex + 1)}>
-        <IoIosArrowForward />
-      </button>
-    </div>
+      />
+      <Pagination.Next onClick={() => handleIndexChange(googleBooksIndex + 1)}/>
+    </Pagination>
   );
 }
 
