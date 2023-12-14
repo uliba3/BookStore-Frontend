@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react'
-import { loginUser } from '../reducers/userReducer';
+import { useState, useEffect } from 'react'
+import { loginUser, loadUser } from '../reducers/userReducer';
 import { addNewUser } from '../services/users';
 import { makeMessage } from '../reducers/messageReducer';
 import Form from 'react-bootstrap/Form';
@@ -12,6 +12,9 @@ function AccountPage ({method}) {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    useEffect(() => {
+        dispatch(loadUser());
+    },[]);
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(method == "login"){

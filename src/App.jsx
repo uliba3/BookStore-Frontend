@@ -1,5 +1,5 @@
 // src/App.jsx
-import { Link, Outlet, useNavigate, NavLink } from "react-router-dom";
+import { Outlet, useNavigate, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Container from 'react-bootstrap/Container';
@@ -28,31 +28,45 @@ function App() {
           <Container className="justify-content-center">
             <Nav>
               <Nav.Item className="px-3">
-                <NavLink to={``} className={state => "text-decoration-none text-dark" + (state.isActive ? ""  : " opacity-50")}><FaHome /></NavLink>
+                <NavLink to={``} className={state => "text-decoration-none text-dark" + (state.isActive ? ""  : " opacity-50")}>
+                  <FaHome />
+                </NavLink>
               </Nav.Item>
               {!user.token && (
                 <>
                   <Nav.Item className="px-3">
-                    <NavLink to={`login`} className={state => "text-decoration-none text-dark" + (state.isActive ? ""  : " opacity-50")}>login</NavLink>
+                    <NavLink to={`login`} className={state => "text-decoration-none text-dark" + (state.isActive ? ""  : " opacity-50")}>
+                      login
+                    </NavLink>
                   </Nav.Item>
                   <Nav.Item className="px-3">
-                    <NavLink to={`signup`} className={state => "text-decoration-none text-dark" + (state.isActive ? ""  : " opacity-50")}>signup</NavLink>
+                    <NavLink to={`signup`} className={state => "text-decoration-none text-dark" + (state.isActive ? ""  : " opacity-50")}>
+                      signup
+                    </NavLink>
                   </Nav.Item>
                 </>
               )}
               {user.token && (
                 <>
                   <Nav.Item className="px-3">
-                    <NavLink to={`googleBooks`} className={state => "text-decoration-none text-dark" + (state.isActive ? ""  : " opacity-50")}><FaSearch/>Search</NavLink>
+                    <NavLink to={`googleBooks`} className={state => "text-decoration-none text-dark" + (state.isActive ? ""  : " opacity-50")}>
+                      <FaSearch/>Search
+                    </NavLink>
                   </Nav.Item>
                   <Nav.Item className="px-3">
-                    <NavLink to={`wishlist`} className={state => "text-decoration-none text-dark" + (state.isActive ? ""  : " opacity-50")}><FaStar/>Wishlist</NavLink>
+                    <NavLink to={`wishlist`} className={state => "text-decoration-none text-dark" + (state.isActive ? ""  : " opacity-50")}>
+                      <FaStar/>Wishlist
+                    </NavLink>
                   </Nav.Item>
                   <Nav.Item className="px-3">
-                    <NavLink to={`history`} className={state => "text-decoration-none text-dark" + (state.isActive ? ""  : " opacity-50")}><FaHistory />History</NavLink>
+                    <NavLink to={`history`} className={state => "text-decoration-none text-dark" + (state.isActive ? ""  : " opacity-50")}>
+                      <FaHistory />History
+                    </NavLink>
                   </Nav.Item>
                   <Nav.Item className="px-3">
-                    <Button variant="outline-warning" size="sm" onClick={handleLogout}>logOut</Button>
+                    <Button variant="outline-warning" size="sm" onClick={handleLogout}>
+                      logOut
+                    </Button>
                   </Nav.Item>
                 </>
               )}

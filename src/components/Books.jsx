@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import { initializeUserBooks } from '../reducers/userReducer';
+import { initializeUserBooks, loadUser } from '../reducers/userReducer';
 import SearchBox from './SearchBox';
 import IndexButtons from './IndexButtons';
 import BookCard from './BookCard';
@@ -25,6 +25,7 @@ function Books({bookDestination}) {
             break;
     }
     useEffect (() => {
+        dispatch(loadUser());
         dispatch(initializeUserBooks());
         console.log('userBooks useEffect end', books);
     }, []);

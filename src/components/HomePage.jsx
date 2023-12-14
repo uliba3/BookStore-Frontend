@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from 'react-bootstrap/Button';
+import { loadUser, deleteExistingUser } from "../reducers/userReducer";
 
 function HomePage() {
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(loadUser());
+    },[]);
     const handleDelete = () => {
       dispatch(deleteExistingUser());
       navigate('/');

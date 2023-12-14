@@ -1,10 +1,11 @@
 import { React, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import CloseButton from 'react-bootstrap/CloseButton';
 
 import AddButton from "./AddButton";
 import { getGoogleBook } from "../services/googleBooks";
+import { loadUser } from "../reducers/userReducer";
 
 function ImageDisplay({ book }) {
   console.log(book.imageLinks, Boolean(book.imageLinks));
@@ -21,6 +22,7 @@ function ImageDisplay({ book }) {
 }
 
 function Book({ bookDestination }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { bookId } = useLoaderData();
   const [book, setBook] = useState(null);
@@ -38,6 +40,7 @@ function Book({ bookDestination }) {
   }
 
   useEffect(() => {
+    dispatch(loadUser());
     console.log("bookDestination", bookDestination);
     async function getBook(bookDestination){
       switch (bookDestination) {

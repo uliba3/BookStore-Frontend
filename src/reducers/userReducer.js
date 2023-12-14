@@ -110,7 +110,8 @@ export const logoutUser = () => async (dispatch) => {
     dispatch(makeMessage("Logged out"));
 }
 
-export const loadUser = () => async (dispatch) => {
+export const loadUser = () => async (dispatch, getState) => {
+    if(getState().user.token) return;
     const loggedUserJSON = window.localStorage.getItem('loggedUser');
     console.log("loadUser", loggedUserJSON);
     if (loggedUserJSON) {
