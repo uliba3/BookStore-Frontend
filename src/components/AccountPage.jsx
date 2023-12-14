@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { loginUser } from '../reducers/userReducer';
 import { addNewUser } from '../services/users';
 import { makeMessage } from '../reducers/messageReducer';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 function AccountPage ({method}) {
     const dispatch = useDispatch();
@@ -24,11 +26,11 @@ function AccountPage ({method}) {
     }
     
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-            <input type="text" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <button type="submit">{method}</button>
-        </form>
+        <Form onSubmit={handleSubmit}>
+            <Form.Control type="text" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <Form.Control type="text" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <Button variant={"outline-" + (method=="login"? "success" : "primary")} type="submit">{method}</Button>
+        </Form>
     )
 }
 

@@ -2,6 +2,7 @@ import { addNewBook, deleteExistingBook } from '../reducers/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { isBookIncluded } from '../services/book';
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
+import Button from 'react-bootstrap/Button';
 
 function AddButton({ book }) {
   const dispatch = useDispatch();
@@ -15,13 +16,13 @@ function AddButton({ book }) {
     <>
       {
         isBookInHistory ? 
-        <button onClick={()=>dispatch(deleteExistingBook(book, "history"))}><FaBookmark /> history</button> : 
-        <button onClick={() => dispatch(addNewBook(book, "history"))}><FaRegBookmark /> history</button>
+        <Button variant="light" onClick={()=>dispatch(deleteExistingBook(book, "history"))}><FaBookmark /> history</Button> : 
+        <Button variant="light" onClick={() => dispatch(addNewBook(book, "history"))}><FaRegBookmark /> history</Button>
       }
       {
         isBookInWishlist ? 
-        <button onClick={()=>dispatch(deleteExistingBook(book, "wishlist"))}><FaBookmark /> WishList</button> : 
-        <button onClick={() => dispatch(addNewBook(book, "wishlist"))}><FaRegBookmark /> WishList</button>
+        <Button variant="light" onClick={()=>dispatch(deleteExistingBook(book, "wishlist"))}><FaBookmark /> WishList</Button> : 
+        <Button variant="light" onClick={() => dispatch(addNewBook(book, "wishlist"))}><FaRegBookmark /> WishList</Button>
       }
     </>
   );
