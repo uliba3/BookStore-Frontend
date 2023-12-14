@@ -1,9 +1,11 @@
 // src/Books.jsx
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { initializeUserBooks } from '../reducers/userReducer';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
-import { useDispatch } from 'react-redux';
+import { initializeUserBooks } from '../reducers/userReducer';
 import SearchBox from './SearchBox';
 import IndexButtons from './IndexButtons';
 import BookCard from './BookCard';
@@ -29,18 +31,25 @@ function Books({bookDestination}) {
 
     return (
         <>
-            <h1>{bookDestination}</h1>
             {bookDestination=="googleBooks" && 
             <>
-                <SearchBox />
-                <IndexButtons />
+                <div className='text-center'>
+                    <SearchBox/>
+                    <IndexButtons />
+                </div>
             </>
             }
-            {books &&
-                books.map((book, i) => (
-                    <BookCard book={book} key={i} />
-                ))
-            }
+            <Container>
+                <Row>
+                    {books &&
+                        books.map((book, i) => (
+                            <Col key={i} md={2}>
+                                <BookCard book={book} bookDestination={bookDestination} />
+                            </Col>
+                        ))
+                    }
+                </Row>
+            </Container>
         </>
     )
 }

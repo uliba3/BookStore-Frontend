@@ -11,11 +11,11 @@ function HomePage() {
     <>
       {user.token && 
         <>
-          <p>Logged in as {user.username}</p>
+          <div>Logged in as {user.username}</div>
           <button onClick={handleDelete}>deleteUser</button>
         </>
       }
-      {!user.token && <p>Description of the service</p>}
+      {!user.token && <div>Description of the service</div>}
     </>
   );
 }
