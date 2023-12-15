@@ -29,11 +29,14 @@ function AccountPage ({method}) {
     }
     
     return (
-        <Form onSubmit={handleSubmit} className='p-5 m-5 w-25'>
-            <Form.Control type="text" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-            <Form.Control type="text" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <Button variant={"outline-" + (method=="login"? "success" : "primary")} type="submit">{method}</Button>
-        </Form>
+        <div className='d-flex justify-content-center'>
+            <Form onSubmit={handleSubmit} className={"p-5 m-5 w-25 vh-100 " + (method === "login" ? "order-1" : "order-2")}>
+                <Form.Control type="text" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                <Form.Control type="text" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <Button variant={"outline-" + (method=="login"? "success" : "primary")} type="submit">{method}</Button>
+            </Form>
+            <img src={method=="login" ? "src/assets/stackOfBooksTransparent.png" : "src/assets/stack_of_books_transparent.png"} className={'w-50 h-50 ' + (method === "login" ? "order-2" : "order-1")}/>
+        </div>
     )
 }
 

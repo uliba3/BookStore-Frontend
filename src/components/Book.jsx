@@ -65,32 +65,29 @@ function Book({ bookDestination }) {
 
   return (
     <>
-      <div className="p-3">
-        <CloseButton onClick={() => navigate(-1)}/>
-      </div>
-      {book ? (
-        <div className="d-flex flex-row">
-          <div className="p-5 m-5">
-            <ImageDisplay book={book} />
-            <div className="d-flex">
-              <AddButton book={book} />
-            </div>
-          </div>
-          <div className="p-5 m-5">
-            <div className="h1">{book.title}</div>
-            {book.authors&&<Badge bg="secondary" className="m-1">{book.authors}</Badge>}
-            {book.publisher&&<Badge bg="secondary" className="m-1">{book.publisher}</Badge>}
-            {book.publishedDate&&<Badge bg="secondary" className="m-1">{book.publishedDate}</Badge>}
-            {book.pagecount && <Badge bg="secondary" className="m-1">{book.pagecount}pages</Badge>}
-            {book.categories && <Badge bg="secondary" className="m-1">{book.categories}</Badge>}
-            <div>{book.description}</div>
-          </div>
-          
-        </div>
-      ) : (
-        <div>Book not found</div> && console.log(book, books)
-      )}
-      {console.log("book.imageLinks.thumbnail",book)}
+      {book&&
+            <div>
+              <div className="p-3">
+                <CloseButton onClick={() => navigate(-1)}/>
+              </div>
+              <div className="d-flex flex-row">
+                <div className="p-5 m-5">
+                  <ImageDisplay book={book} />
+                  <div className="d-flex">
+                    <AddButton book={book} />
+                  </div>
+                </div>
+                <div className="p-5 m-5">
+                  <div className="h1">{book.title}</div>
+                  {book.authors&&<Badge bg="secondary" className="m-1">{book.authors}</Badge>}
+                  {book.publisher&&<Badge bg="secondary" className="m-1">{book.publisher}</Badge>}
+                  {book.publishedDate&&<Badge bg="secondary" className="m-1">{book.publishedDate}</Badge>}
+                  {book.pagecount && <Badge bg="secondary" className="m-1">{book.pagecount}pages</Badge>}
+                  {book.categories && <Badge bg="secondary" className="m-1">{book.categories}</Badge>}
+                  <div>{book.description}</div>
+                </div>
+              </div>
+            </div>}
     </>
   );
 }
