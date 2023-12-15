@@ -9,8 +9,8 @@ import { loadUser } from "../reducers/userReducer";
 
 function ImageDisplay({ book }) {
   console.log(book.imageLinks, Boolean(book.imageLinks));
-  if (book.imageLinks&&(book.imageLinks.small||book.imageLinks.thumbnail)) {
-    return <img src={book.imageLinks.small||book.imageLinks.thumbnail} alt={book.title} />;
+  if (book.imageLinks&&(book.imageLinks.thumbnail)) {
+    return <img src={book.imageLinks.thumbnail} alt={book.title} />;
   } else {
     return (
       <img
@@ -63,24 +63,34 @@ function Book({ bookDestination }) {
   console.log(books, bookId, bookDestination);
 
   return (
-    <div>
+    <>
+      <div className="p-3">
+        <CloseButton onClick={() => navigate(-1)}/>
+      </div>
       {book ? (
-        <>
-          <CloseButton onClick={() => navigate(-1)}/>
-          <div>{book.title}</div>
-          <div>{book.authors || ""}</div>
-          <div>{book.publisher || ""}</div>
-          <div>{book.publishedDate || ""}</div>
-          {book.pagecount && <div>{book.pagecount}pages</div>}
-          <div>{book.categories || ""}</div>
-          <ImageDisplay book={book} />
-          <div>{book.description}</div>
-          <AddButton book={book} />
-        </>
+        <div className="d-flex flex-row">
+          <div className="p-5 m-5">
+            <ImageDisplay book={book} />
+            <div className="d-flex">
+              <AddButton book={book} />
+            </div>
+          </div>
+          <div className="p-5 m-5">
+            <div className="h1">{book.title}</div>
+            <div>{book.authors || ""}</div>
+            <div>{book.publisher || ""}</div>
+            <div>{book.publishedDate || ""}</div>
+            {book.pagecount && <div>{book.pagecount}pages</div>}
+            <div>{book.categories || ""}</div>
+            <div>{book.description}</div>
+          </div>
+          
+        </div>
       ) : (
         <div>Book not found</div> && console.log(book, books)
       )}
-    </div>
+      {console.log("book.imageLinks.thumbnail",book)}
+    </>
   );
 }
 
