@@ -8,6 +8,7 @@ import Nav from 'react-bootstrap/Nav';
 import { loadUser, logoutUser } from "./reducers/userReducer";
 import { FaHome, FaSearch, FaStar, FaHistory } from "react-icons/fa";
 import Button from 'react-bootstrap/Button';
+import Message from "./components/Message";
 
 function App() {
   const dispatch = useDispatch();
@@ -73,7 +74,7 @@ function App() {
             </Nav>
           </Container>
         </Navbar>
-      {message && <div>{message}</div>}
+        <Message />
       <Outlet />
     </>
   );

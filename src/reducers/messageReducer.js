@@ -16,7 +16,7 @@ export const makeMessage = (message) => async (dispatch) => {
     dispatch(setMessage(message));
     setTimeout(() => {
         dispatch(setMessage(""));
-    }, 5000);
+    }, 10000);
 }
 
 export default messageSlice.reducer;

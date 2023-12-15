@@ -64,10 +64,10 @@ export const addNewBook = (book, bookDestination) => async (dispatch, getState) 
             bookDestination=="history"? await userHistory.addBook(book): await userWishlist.addBook(book);
             const newBooks = [...userBooks, book];
             bookDestination=="history"? dispatch(setUserBooks({history: newBooks})): dispatch(setUserBooks({wishlist: newBooks}));
-            dispatch(makeMessage("Book added to the " + bookDestination));
+            dispatch(makeMessage(`${book.title} added to the ${bookDestination}`));
         }
     } catch (error) {
-        dispatch(makeMessage("Error adding a new book"));
+        dispatch(makeMessage(`Error adding ${book.title} to the ${bookDestination}`));
     }
 };
 
@@ -78,9 +78,10 @@ export const deleteExistingBook = (book, bookDestination) => async (dispatch, ge
             bookDestination=="history"? await userHistory.deleteBook(book): await userWishlist.deleteBook(book);
             const newContents = userBooks.filter(b => b.bookId !== book.bookId);
             bookDestination=="history"? dispatch(setUserBooks({history: newContents})): dispatch(setUserBooks({wishlist: newContents}));
+            dispatch(makeMessage(`${book.title} deleted from the ${bookDestination}`));
         }
     } catch (error) {
-        dispatch(makeMessage("Error deleting the book"));
+        dispatch(makeMessage(`Error deleting ${book.title} from the ${bookDestination}}`));
     }
 };
 
@@ -98,7 +99,7 @@ export const loginUser = (username, password) => async (dispatch) => {
     console.log("loginUser", username, user.token);
     dispatch(setUser({ username, token: user.token, id: user.id }));
     dispatch(initializeUserBooks());
-    dispatch(makeMessage('Logged in'));
+    dispatch(makeMessage(`${username} Logged in`));
     } catch (error) {
         dispatch(makeMessage("Wrong username or password"));
         console.log("error", error);

@@ -22,7 +22,7 @@ function AccountPage ({method}) {
             navigate('/');
         }else if(method == "signup"){
             await addNewUser(username, password);
-            dispatch(makeMessage('Signed up'));
+            dispatch(makeMessage(`${username} Signed up`));
         }
         setUsername('');
         setPassword('');
