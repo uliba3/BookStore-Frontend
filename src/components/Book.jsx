@@ -26,6 +26,7 @@ function Book({ bookDestination }) {
   const navigate = useNavigate();
   const { bookId } = useLoaderData();
   const [book, setBook] = useState(null);
+  const user = useSelector(state => state.user);
   let books;
   switch (bookDestination) {
     case "history":
@@ -57,6 +58,7 @@ function Book({ bookDestination }) {
       }
     }
     getBook(bookDestination);
+    if(!user.token) navigate("/");
   },[]);
   console.log(books, bookId, bookDestination);
 

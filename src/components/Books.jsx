@@ -12,6 +12,7 @@ import BookCard from './BookCard';
 
 function Books({bookDestination}) {
     const dispatch = useDispatch();
+    const user = useSelector(state => state.user);
     let books;
     switch (bookDestination) {
         case "history":
@@ -28,6 +29,9 @@ function Books({bookDestination}) {
         dispatch(loadUser());
         dispatch(initializeUserBooks());
         console.log('userBooks useEffect end', books);
+        if(!user.token){
+            navigate('/');
+        }
     }, []);
 
     return (
