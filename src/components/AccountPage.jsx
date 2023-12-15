@@ -29,7 +29,7 @@ function AccountPage ({method}) {
     }
     
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} className='p-5 m-5 w-25'>
             <Form.Control type="text" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
             <Form.Control type="text" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             <Button variant={"outline-" + (method=="login"? "success" : "primary")} type="submit">{method}</Button>

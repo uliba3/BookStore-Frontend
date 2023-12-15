@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import CloseButton from 'react-bootstrap/CloseButton';
+import Badge from 'react-bootstrap/Badge';
 
 import AddButton from "./AddButton";
 import { getGoogleBook } from "../services/googleBooks";
@@ -77,11 +78,11 @@ function Book({ bookDestination }) {
           </div>
           <div className="p-5 m-5">
             <div className="h1">{book.title}</div>
-            <div>{book.authors || ""}</div>
-            <div>{book.publisher || ""}</div>
-            <div>{book.publishedDate || ""}</div>
-            {book.pagecount && <div>{book.pagecount}pages</div>}
-            <div>{book.categories || ""}</div>
+            {book.authors&&<Badge bg="secondary" className="m-1">{book.authors}</Badge>}
+            {book.publisher&&<Badge bg="secondary" className="m-1">{book.publisher}</Badge>}
+            {book.publishedDate&&<Badge bg="secondary" className="m-1">{book.publishedDate}</Badge>}
+            {book.pagecount && <Badge bg="secondary" className="m-1">{book.pagecount}pages</Badge>}
+            {book.categories && <Badge bg="secondary" className="m-1">{book.categories}</Badge>}
             <div>{book.description}</div>
           </div>
           
