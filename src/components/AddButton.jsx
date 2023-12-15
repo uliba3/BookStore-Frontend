@@ -16,13 +16,13 @@ function AddButton({ book }) {
     <>
       {
         isBookInHistory ? 
-        <Button variant="light" onClick={()=>dispatch(deleteExistingBook(book, "history"))}><FaBookmark /> history</Button> : 
-        <Button variant="light" onClick={() => dispatch(addNewBook(book, "history"))}><FaRegBookmark /> history</Button>
+        <Button className="p-2" variant="light" onClick={()=>dispatch(deleteExistingBook(book, "history"))}><FaBookmark /> history</Button> : 
+        <Button className="p-2" variant="light" onClick={() => dispatch(addNewBook(book, "history"))}><FaRegBookmark /> history</Button>
       }
       {
         isBookInWishlist ? 
-        <Button variant="light" onClick={()=>dispatch(deleteExistingBook(book, "wishlist"))}><FaBookmark /> WishList</Button> : 
-        <Button variant="light" onClick={() => dispatch(addNewBook(book, "wishlist"))}><FaRegBookmark /> WishList</Button>
+        <Button className="p-2" variant="light" onClick={()=>dispatch(deleteExistingBook(book, "wishlist"))}><FaBookmark /> WishList</Button> : 
+        <Button className="p-2" variant="light" onClick={() => dispatch(addNewBook(book, "wishlist"))}><FaRegBookmark /> WishList</Button>
       }
     </>
   );
