@@ -43,15 +43,15 @@ export const reset = () => async (dispatch) => {
 }
 
 export const initializeUserBooks = () => async (dispatch) => {
-    console.log("initializeUserBooks");
+    //console.log("initializeUserBooks");
     try {
         const history = await userHistory.getBooks();
-        console.log("books", history);
+        //console.log("books", history);
         const wishlist = await userWishlist.getBooks();
-        console.log("books", wishlist);
+        //console.log("books", wishlist);
         dispatch(setUserBooks({history: history, wishlist: wishlist}));  // dispatching with the correct payload
     } catch (error) {
-        console.log("error", error);
+        //console.log("error", error);
         dispatch(makeMessage("Error loading user books"));
         dispatch(logoutUser());
     }
@@ -90,19 +90,19 @@ export const loginUser = (username, password) => async (dispatch) => {
     const user = await loginService.login({
         username, password
     })
-    console.log("user", user);
+    //console.log("user", user);
     window.localStorage.setItem(
         'loggedUser', JSON.stringify(user)
     )
     userHistory.setToken(user.token);
     userWishlist.setToken(user.token);
-    console.log("loginUser", username, user.token);
+    //console.log("loginUser", username, user.token);
     dispatch(setUser({ username, token: user.token, id: user.id }));
     dispatch(initializeUserBooks());
     dispatch(makeMessage(`${username} Logged in`));
     } catch (error) {
         dispatch(makeMessage("Wrong username or password"));
-        console.log("error", error);
+        //console.log("error", error);
     }
 };
 
@@ -114,10 +114,10 @@ export const logoutUser = () => async (dispatch) => {
 export const loadUser = () => async (dispatch, getState) => {
     if(getState().user.token) return;
     const loggedUserJSON = window.localStorage.getItem('loggedUser');
-    console.log("loadUser", loggedUserJSON);
+    //console.log("loadUser", loggedUserJSON);
     if (loggedUserJSON) {
         const user = JSON.parse(loggedUserJSON);
-        console.log("loadUser", user);
+        //console.log("loadUser", user);
         dispatch(setUser(user));
         userHistory.setToken(user.token);
         userWishlist.setToken(user.token);
@@ -131,7 +131,7 @@ export const deleteExistingUser = () => async (dispatch, getState) => {
         dispatch(makeMessage("User deleted"));
         dispatch(reset());
     } catch (error) {
-        console.log("error", error);
+        //console.log("error", error);
         dispatch(makeMessage("Error deleting the user"));
     }
 }

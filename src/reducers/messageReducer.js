@@ -12,7 +12,7 @@ export const messageSlice = createSlice({
 export const { setMessage } = messageSlice.actions;
 
 export const makeMessage = (message) => async (dispatch) => {
-    console.log("message", message);
+    //console.log("message", message);
     dispatch(setMessage(message));
     setTimeout(() => {
         dispatch(setMessage(""));

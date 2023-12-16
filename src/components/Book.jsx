@@ -9,7 +9,7 @@ import { getGoogleBook } from "../services/googleBooks";
 import { loadUser } from "../reducers/userReducer";
 
 function ImageDisplay({ book }) {
-  console.log(book.imageLinks, Boolean(book.imageLinks));
+  //console.log(book.imageLinks, Boolean(book.imageLinks));
   if (book.imageLinks&&(book.imageLinks.thumbnail)) {
     return <img src={book.imageLinks.thumbnail} alt={book.title} />;
   } else {
@@ -43,14 +43,14 @@ function Book({ bookDestination }) {
 
   useEffect(() => {
     dispatch(loadUser());
-    console.log("bookDestination", bookDestination);
+    //console.log("bookDestination", bookDestination);
     async function getBook(bookDestination){
       switch (bookDestination) {
         case "history":
         case "wishlist":
           let userBook = await books.find((book) => book.bookId === bookId);
           setBook(userBook);
-          console.log("userBook", book);
+          //console.log("userBook", book);
           break;
         case "googleBooks":
           let googleBook = await getGoogleBook(bookId);
@@ -61,7 +61,7 @@ function Book({ bookDestination }) {
     getBook(bookDestination);
     if(!user.token) navigate("/");
   },[]);
-  console.log(books, bookId, bookDestination);
+  //console.log(books, bookId, bookDestination);
 
   return (
     <>

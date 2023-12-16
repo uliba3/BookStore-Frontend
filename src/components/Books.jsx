@@ -28,7 +28,7 @@ function Books({bookDestination}) {
     useEffect (() => {
         dispatch(loadUser());
         dispatch(initializeUserBooks());
-        console.log('userBooks useEffect end', books);
+        //console.log('userBooks useEffect end', books);
         if(!user.token){
             navigate('/');
         }

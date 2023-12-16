@@ -27,14 +27,14 @@ export const { setGoogleBooks, setGoogleBooksIndex, setSearchedTerm } = googleBo
 export const searchGoogleBooks = (searchTerm) => async (dispatch) => {
     const books = await search(searchTerm, 0);
     dispatch(setSearchedTerm(searchTerm));
-    console.log("searchedTerm: " + searchTerm);
+    //console.log("searchedTerm: " + searchTerm);
     dispatch(setGoogleBooksIndex(0));
     dispatch(setGoogleBooks(books));
 };
 
 export const changeIndex = (index) => async (dispatch, getState) => {
     const searchedTerm = getState().googleBooks.searchedTerm;
-    console.log("searchedTerm: " + searchedTerm);
+    //console.log("searchedTerm: " + searchedTerm);
     const books = await search(searchedTerm, index);
     dispatch(setGoogleBooksIndex(index));
     dispatch(setGoogleBooks(books));

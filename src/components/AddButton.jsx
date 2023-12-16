@@ -8,7 +8,7 @@ function AddButton({ book }) {
   const dispatch = useDispatch();
   const history = useSelector(state => state.user.history);
   const wishlist = useSelector(state => state.user.wishlist);
-  console.log("history", history, "wishlist", wishlist);
+  //console.log("history", history, "wishlist", wishlist);
   const isBookInHistory = isBookIncluded(book, history);
   const isBookInWishlist = isBookIncluded(book, wishlist);
 

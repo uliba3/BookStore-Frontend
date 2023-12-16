@@ -50,7 +50,7 @@ function HomePage() {
             <div className="h1">Look at the information of each book</div>
           </div>
           <div className='d-flex justify-content-around align-items-center p-5 m-5'>
-            <div className="h1">Add or remove the book from you wishlist or history</div>
+            <div className="h1">Add or remove the book from your wishlist or history</div>
             <img src={bookStoreListTransparent} className="w-50 h-50"/>
           </div>
         </div>}
