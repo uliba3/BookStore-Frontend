@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = "http://localhost:3000/api/booksSearch";
+const baseUrl = "/api/booksSearch";
 
 export const search = async (query, index) => {
     //console.log("searching for " + query);
