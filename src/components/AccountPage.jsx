@@ -7,6 +7,9 @@ import { makeMessage } from '../reducers/messageReducer';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
+import stackOfBooks from '../assets/stackOfBooksTransparent.png';
+import stack_of_books from '../assets/stack_of_books_transparent.png';
+
 function AccountPage ({method}) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -35,7 +38,7 @@ function AccountPage ({method}) {
                 <Form.Control type="text" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 <Button variant={"outline-" + (method=="login"? "success" : "primary")} type="submit">{method}</Button>
             </Form>
-            <img src={method=="login" ? "src/assets/stackOfBooksTransparent.png" : "src/assets/stack_of_books_transparent.png"} className={'w-50 h-50 ' + (method === "login" ? "order-2" : "order-1")}/>
+            <img src={method=="login" ? stackOfBooks : stack_of_books} className={'w-50 h-50 ' + (method === "login" ? "order-2" : "order-1")}/>
         </div>
     )
 }
