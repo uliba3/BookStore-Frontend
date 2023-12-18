@@ -1,4 +1,4 @@
-// src/Books.jsx
+// src/components/Books.jsx
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
